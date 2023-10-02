@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
 import { EventIndex } from "./EventsIndex";
+import { Modal } from "./Modal";
+import { FavoriteEvents } from "./FavoriteEvents";
 import axios from "axios";
 
 export function Content() {
   const [events, setEvents] = useState([]);
-  const [currentUser, setCurrentUser] = useState();
+  const [favorites, setFavorites] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const getEvents = () => {
     axios.get("http://localhost:3000/events.json").then((response) => setEvents(response.data));
@@ -14,23 +17,35 @@ export function Content() {
 
   const handleFavorite = (id) => {
     console.log("handling favorite", id);
-    axios.post(`http://localhost:3000/favorites/${id}.json`).then((responce) => console.log(responce.data));
+    axios.post(`http://localhost:3000/favorites/${id}.json`).then((response) => console.log(response.data));
   };
 
-  const getCurrentUser = () => {
-    if (localStorage.jwt) {
-      axios.get("http://localhost:3000/current_user.json").then((response) => setCurrentUser(response.data));
-    }
+  const handleShowFavorites = () => {
+    axios.get("http://localhost:3000/favorites.json").then((response) => {
+      setFavorites(response.data);
+    });
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
   };
 
   useEffect(getEvents, []);
-  useEffect(getCurrentUser, []);
 
   return (
     <div>
       <Login />
       <Signup />
-      <EventIndex events={events} onFavorite={handleFavorite} currentUser={currentUser} />
+      <Modal show={showModal} onClose={handleClose}>
+        <FavoriteEvents favoriteEvents={favorites} />
+      </Modal>
+      <EventIndex
+        events={events}
+        onFavorite={handleFavorite}
+        favorites={favorites}
+        showFavorites={handleShowFavorites}
+      />
     </div>
   );
 }

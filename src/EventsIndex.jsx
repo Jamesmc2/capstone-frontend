@@ -1,7 +1,9 @@
-export function EventIndex(params) {
+export function EventIndex(props) {
   return (
     <div>
-      {params.events.map((event) => (
+      <hr></hr>
+      <button onClick={() => props.showFavorites()}>View favorited games</button>
+      {props.events.map((event) => (
         <div key={event.id}>
           <h2>
             {event.away_team} at {event.home_team}
@@ -10,7 +12,7 @@ export function EventIndex(params) {
           <p>Stadium: {event.stadium}</p>
           <p>{event.scheduled_date}</p>
 
-          <button onClick={() => params.onFavorite(event.id)}>Favorite</button>
+          <button onClick={() => props.onFavorite(event.id)}>Favorite</button>
         </div>
       ))}
     </div>
