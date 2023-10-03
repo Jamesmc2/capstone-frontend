@@ -31,6 +31,14 @@ export function Content() {
     setShowModal(false);
   };
 
+  const deleteFavorite = (id) => {
+    axios.delete(`http://localhost:3000/favorites/${id}.json`).then((response) => {
+      console.log(response.data);
+      setFavorites(favorites.filter((f) => f.id !== id));
+      handleClose();
+    });
+  };
+
   useEffect(getEvents, []);
 
   return (
@@ -38,7 +46,7 @@ export function Content() {
       <Login />
       <Signup />
       <Modal show={showModal} onClose={handleClose}>
-        <FavoriteEvents favoriteEvents={favorites} />
+        <FavoriteEvents favoriteEvents={favorites} deleteFavorite={deleteFavorite} />
       </Modal>
       <EventIndex
         events={events}

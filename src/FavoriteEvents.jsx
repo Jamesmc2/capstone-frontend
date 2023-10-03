@@ -9,6 +9,7 @@ export function FavoriteEvents(props) {
           <p>City: {favorite.event.city}</p>
           <p>Stadium: {favorite.event.stadium}</p>
           <p>{favorite.time_edit}</p>
+          <button onClick={() => props.deleteFavorite(favorite.id)}>Delete favorite</button>
         </div>
       ))}
     </div>
