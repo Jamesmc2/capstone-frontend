@@ -19,9 +19,11 @@ export function Content() {
     axios.get("http://localhost:3000/events.json").then((response) => setEvents(response.data));
   };
 
-  const handleFavorite = (id) => {
-    console.log("handling favorite", id);
-    axios.post(`http://localhost:3000/favorites/${id}.json`).then((response) => console.log(response.data));
+  const handleFavorite = (event) => {
+    console.log("handling favorite", event.id);
+    axios.post(`http://localhost:3000/favorites/${event.id}.json`).then((response) => {
+      console.log(response.data);
+    });
   };
 
   const handleShowFavorites = () => {
