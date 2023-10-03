@@ -13,6 +13,7 @@ export function EventIndex(props) {
           <p>{event.scheduled_date}</p>
 
           <button onClick={() => props.onFavorite(event.id)}>Favorite</button>
+          <button onClick={() => props.showReviews(event)}>See reviews</button>
         </div>
       ))}
     </div>
