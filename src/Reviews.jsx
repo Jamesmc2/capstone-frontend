@@ -6,7 +6,12 @@ export function Reviews(props) {
   };
   return (
     <div>
-      <h1>Leave a review</h1>
+      <h1>
+        {props.event.away_team} at {props.event.home_team}
+      </h1>
+      <h2>{props.event.scheduled_date}</h2>
+
+      <h2>Leave a review</h2>
       <form onSubmit={handleSubmit}>
         <div>
           Review: <input name="text" type="text" />
@@ -16,10 +21,12 @@ export function Reviews(props) {
         </div>
         <button type="submit">Submit review</button>
       </form>
-      <h1>All reviews</h1>
+      <h2>All reviews</h2>
       {props.reviews.map((review) => (
         <div key={review.id}>
-          <h3>{review.user.name}</h3>
+          <h3>
+            {review.user.name} | {review.created_at}
+          </h3>
           <p>{review.text}</p>
         </div>
       ))}
