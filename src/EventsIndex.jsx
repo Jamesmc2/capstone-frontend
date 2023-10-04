@@ -39,7 +39,6 @@ export function EventIndex(props) {
 
   return (
     <div>
-      <hr></hr>
       <h1>2023 NFL schedule</h1>
 
       <p>

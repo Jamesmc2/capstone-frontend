@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Login } from "./Login";
-import { Signup } from "./Signup";
+
 import { EventIndex } from "./EventsIndex";
 import { Modal } from "./Modal";
 import { FavoriteEvents } from "./FavoriteEvents";
@@ -65,8 +64,6 @@ export function Content() {
 
   return (
     <div className="container">
-      <Login />
-      <Signup />
       <Modal show={showFavoriteModal} onClose={handleClose}>
         <FavoriteEvents favoriteEvents={favorites} deleteFavorite={deleteFavorite} />
       </Modal>
