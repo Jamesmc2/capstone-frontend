@@ -2,11 +2,20 @@ import { LogoutLink } from "./LogoutLink";
 import { Modal } from "./Modal";
 import { Login } from "./Login";
 import { Signup } from "./Signup";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export function Header() {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(false);
+  let authenticationLinks;
+  const [user, setUser] = useState({});
+  let welcomeMessage;
+
+  const getUser = () => {
+    axios.get("http://localhost:3000/current_user.json").then((response) => setUser(response.data));
+  };
+  useEffect(getUser, []);
 
   const signupLink = () => {
     console.log("signing up");
@@ -24,12 +33,40 @@ export function Header() {
   const closeSignup = () => {
     setShowSignup(false);
   };
+
+  if (localStorage.jwt === undefined) {
+    welcomeMessage = "NFL Schedule";
+    authenticationLinks = (
+      <>
+        <li className="nav-item">
+          <button className="nav-link" onClick={signupLink}>
+            Signup
+          </button>
+        </li>
+        <li className="nav-item">
+          <button className="nav-link" onClick={loginLink}>
+            Login
+          </button>
+        </li>
+      </>
+    );
+  } else {
+    welcomeMessage = `${user.name}`;
+    authenticationLinks = (
+      <>
+        <li className="nav-item">
+          <LogoutLink />
+        </li>
+      </>
+    );
+  }
+
   return (
     <header>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
-            Navbar
+            {welcomeMessage}
           </a>
           <button
             className="navbar-toggler"
@@ -49,19 +86,7 @@ export function Header() {
                   Home
                 </a>
               </li>
-              <li className="nav-item">
-                <button className="nav-link" onClick={loginLink}>
-                  Login
-                </button>
-              </li>
-              <li className="nav-item">
-                <button className="nav-link" onClick={signupLink}>
-                  Signup
-                </button>
-              </li>
-              <li className="nav-item">
-                <LogoutLink />
-              </li>
+              {authenticationLinks}
             </ul>
             <form className="d-flex" role="search">
               <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
