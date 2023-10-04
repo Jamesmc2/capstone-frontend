@@ -64,7 +64,7 @@ export function Content() {
   useEffect(getEvents, []);
 
   return (
-    <div>
+    <div className="container">
       <Login />
       <Signup />
       <Modal show={showFavoriteModal} onClose={handleClose}>
