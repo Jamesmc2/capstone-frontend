@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { ResultsShow } from "./ResultsShow";
 import { EventIndex } from "./EventsIndex";
 import { Modal } from "./Modal";
 import { FavoriteEvents } from "./FavoriteEvents";
@@ -11,11 +11,15 @@ export function Content() {
   const [favorites, setFavorites] = useState([]);
   const [showFavoriteModal, setShowFavoriteModal] = useState(false);
   const [showReviewsModal, setShowReviewsModal] = useState(false);
+  const [showResultsModal, setShowResultsModal] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [showEvent, setShowEvent] = useState({});
+  const [results, setResults] = useState({});
 
   const getEvents = () => {
-    axios.get("http://localhost:3000/events.json").then((response) => setEvents(response.data));
+    axios.get("http://localhost:3000/events.json").then((response) => {
+      setEvents(response.data);
+    });
   };
 
   const handleFavorite = (event) => {
@@ -36,6 +40,7 @@ export function Content() {
   const handleClose = () => {
     setShowFavoriteModal(false);
     setShowReviewsModal(false);
+    setShowResultsModal(false);
   };
 
   const deleteFavorite = (id) => {
@@ -60,6 +65,15 @@ export function Content() {
     });
   };
 
+  const getResults = (event) => {
+    axios.get(`http://localhost:3000/events/${event.id}/stats.json`).then((response) => {
+      console.log(response.data);
+      setResults(response.data);
+      setShowEvent(event);
+      setShowResultsModal(true);
+    });
+  };
+
   useEffect(getEvents, []);
 
   return (
@@ -70,12 +84,16 @@ export function Content() {
       <Modal show={showReviewsModal} onClose={handleClose}>
         <Reviews reviews={reviews} onSubmitReview={createReview} event={showEvent} />
       </Modal>
+      <Modal show={showResultsModal} onClose={handleClose}>
+        <ResultsShow results={results} event={showEvent} />
+      </Modal>
       <EventIndex
         events={events}
         onFavorite={handleFavorite}
         favorites={favorites}
         showFavorites={handleShowFavorites}
         showReviews={getReviews}
+        onResults={getResults}
       />
     </div>
   );

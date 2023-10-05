@@ -74,6 +74,8 @@ export function EventIndex(props) {
 
             <button onClick={() => props.onFavorite(event)}>Favorite</button>
             <button onClick={() => props.showReviews(event)}>See reviews</button>
+            {event.status === "closed" && <button onClick={() => props.onResults(event)}>Show results</button>}
+            <hr></hr>
           </div>
         ))}
     </div>
