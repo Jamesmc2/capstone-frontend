@@ -1,14 +1,4 @@
 export function ResultsShow(props) {
-  let homeScore =
-    props.results.scoring[0].home_points +
-    props.results.scoring[1].home_points +
-    props.results.scoring[2].home_points +
-    props.results.scoring[3].home_points;
-  let awayScore =
-    props.results.scoring[0].away_points +
-    props.results.scoring[1].away_points +
-    props.results.scoring[2].away_points +
-    props.results.scoring[3].away_points;
   return (
     <div>
       <h1>
@@ -36,7 +26,7 @@ export function ResultsShow(props) {
             <td>{props.results.scoring[1].home_points}</td>
             <td>{props.results.scoring[2].home_points}</td>
             <td>{props.results.scoring[3].home_points}</td>
-            <td className="fw-bold">{homeScore}</td>
+            <td className="fw-bold">{props.results.summary.home.points}</td>
           </tr>
           <tr>
             <th scope="row">
@@ -47,7 +37,7 @@ export function ResultsShow(props) {
             <td>{props.results.scoring[1].away_points}</td>
             <td>{props.results.scoring[2].away_points}</td>
             <td>{props.results.scoring[3].away_points}</td>
-            <td className="fw-bold">{awayScore}</td>
+            <td className="fw-bold">{props.results.summary.away.points}</td>
           </tr>
         </tbody>
       </table>

@@ -41,6 +41,33 @@ export function EventIndex(props) {
     <div>
       <h1>2023 NFL schedule</h1>
 
+      <div className="dropdown">
+        <button
+          className="btn btn-secondary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Week {props.events[0] && props.events[0].week}
+        </button>
+        <ul className="dropdown-menu">
+          <li>
+            <button className="dropdown-item" onClick={() => props.setWeek(1)}>
+              Week 1
+            </button>
+          </li>
+          <li>
+            <button className="dropdown-item" onClick={() => props.setWeek(2)}>
+              Week 2
+            </button>
+          </li>
+          <li>
+            <button className="dropdown-item" onClick={() => props.setWeek(3)}>
+              Week 3
+            </button>
+          </li>
+        </ul>
+      </div>
       <p>
         Search by team:{" "}
         <input
@@ -50,6 +77,7 @@ export function EventIndex(props) {
           list="teamNames"
         />
       </p>
+
       <datalist id="teamNames">
         {teamNames.map((name) => (
           <option key={name}>{name}</option>

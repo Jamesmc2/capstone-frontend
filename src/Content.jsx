@@ -15,11 +15,20 @@ export function Content() {
   const [reviews, setReviews] = useState([]);
   const [showEvent, setShowEvent] = useState({});
   const [results, setResults] = useState({});
+  const [currentWeek, setCurrentWeek] = useState(1);
 
-  const getEvents = () => {
-    axios.get("http://localhost:3000/events.json").then((response) => {
-      setEvents(response.data);
-    });
+  const getEvents = (week) => {
+    if (week) {
+      axios.get(`http://localhost:3000/events/${week}.json`).then((response) => {
+        console.log(response.data);
+        setEvents(response.data);
+      });
+    } else {
+      axios.get(`http://localhost:3000/events/1.json`).then((response) => {
+        console.log(response.data);
+        setEvents(response.data);
+      });
+    }
   };
 
   const handleFavorite = (event) => {
@@ -66,7 +75,7 @@ export function Content() {
   };
 
   const getResults = (event) => {
-    axios.get(`http://localhost:3000/events/${event.id}/stats.json`).then((response) => {
+    axios.get(`http://localhost:3000/events/${event.id}/results.json`).then((response) => {
       console.log(response.data);
       setResults(response.data);
       setShowEvent(event);
@@ -94,6 +103,7 @@ export function Content() {
         showFavorites={handleShowFavorites}
         showReviews={getReviews}
         onResults={getResults}
+        setWeek={getEvents}
       />
     </div>
   );
