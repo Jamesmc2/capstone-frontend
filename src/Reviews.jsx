@@ -10,7 +10,7 @@ export function Reviews(props) {
         {props.event.away_team} at {props.event.home_team}
       </h1>
       <h2>{props.event.scheduled_date}</h2>
-
+      <hr></hr>
       <h2>Leave a review</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -21,6 +21,7 @@ export function Reviews(props) {
         </div>
         <button type="submit">Submit review</button>
       </form>
+      <hr></hr>
       <h2>All reviews</h2>
       {props.reviews.map((review) => (
         <div key={review.id}>
