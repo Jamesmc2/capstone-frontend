@@ -36,6 +36,7 @@ export function EventIndex(props) {
     "Tennessee Titans",
     "Washington Commanders",
   ];
+  let weeks = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
   return (
     <div>
@@ -51,21 +52,13 @@ export function EventIndex(props) {
           Week {props.events[0] && props.events[0].week}
         </button>
         <ul className="dropdown-menu">
-          <li>
-            <button className="dropdown-item" onClick={() => props.setWeek(1)}>
-              Week 1
-            </button>
-          </li>
-          <li>
-            <button className="dropdown-item" onClick={() => props.setWeek(2)}>
-              Week 2
-            </button>
-          </li>
-          <li>
-            <button className="dropdown-item" onClick={() => props.setWeek(3)}>
-              Week 3
-            </button>
-          </li>
+          {weeks.map((week) => (
+            <li key={week}>
+              <button className="dropdown-item" onClick={() => props.setWeek(week)}>
+                Week {week}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
       <p>
@@ -84,6 +77,7 @@ export function EventIndex(props) {
         ))}
       </datalist>
       <button onClick={() => props.showFavorites()}>View favorited games</button>
+      <h1 className="text-center">Week {props.events[0] && props.events[0].week}</h1>
       {props.events
         .filter(
           (event) =>
