@@ -5,7 +5,7 @@ export function Reviews(props) {
     props.onSubmitReview(params, () => event.target.reset());
   };
   return (
-    <div>
+    <div className="text-center">
       <h1>
         {props.event.away_team} at {props.event.home_team}
       </h1>
