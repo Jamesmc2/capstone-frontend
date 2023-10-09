@@ -15,17 +15,14 @@ export function Content() {
   const [reviews, setReviews] = useState([]);
   const [showEvent, setShowEvent] = useState({});
   const [results, setResults] = useState({});
-  const [currentWeek, setCurrentWeek] = useState(1);
 
   const getEvents = (week) => {
     if (week) {
       axios.get(`http://localhost:3000/events/${week}.json`).then((response) => {
-        console.log(response.data);
         setEvents(response.data);
       });
     } else {
       axios.get(`http://localhost:3000/events/1.json`).then((response) => {
-        console.log(response.data);
         setEvents(response.data);
       });
     }
@@ -33,15 +30,12 @@ export function Content() {
 
   const handleFavorite = (event) => {
     console.log("handling favorite", event.id);
-    axios.post(`http://localhost:3000/favorites/${event.id}.json`).then((response) => {
-      console.log(response.data);
-    });
+    axios.post(`http://localhost:3000/favorites/${event.id}.json`).then((response) => {});
   };
 
   const handleShowFavorites = () => {
     axios.get("http://localhost:3000/favorites.json").then((response) => {
       setFavorites(response.data);
-      console.log(response.data);
     });
     setShowFavoriteModal(true);
   };
@@ -54,7 +48,6 @@ export function Content() {
 
   const deleteFavorite = (id) => {
     axios.delete(`http://localhost:3000/favorites/${id}.json`).then((response) => {
-      console.log(response.data);
       setFavorites(favorites.filter((f) => f.id !== id));
       handleClose();
     });
@@ -76,7 +69,6 @@ export function Content() {
 
   const getResults = (event) => {
     axios.get(`http://localhost:3000/events/${event.id}/results.json`).then((response) => {
-      console.log(response.data);
       setResults(response.data);
       setShowEvent(event);
       setShowResultsModal(true);
