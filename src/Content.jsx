@@ -79,15 +79,21 @@ export function Content() {
 
   return (
     <div className="container">
+      {/* Modal to show a users favorited events */}
       <Modal show={showFavoriteModal} onClose={handleClose}>
         <FavoriteEvents favoriteEvents={favorites} deleteFavorite={deleteFavorite} />
       </Modal>
+
+      {/* Modal to show an events reviews */}
       <Modal show={showReviewsModal} onClose={handleClose}>
         <Reviews reviews={reviews} onSubmitReview={createReview} event={showEvent} />
       </Modal>
+
+      {/* Modal to show an events results */}
       <Modal show={showResultsModal} onClose={handleClose}>
         <ResultsShow results={results} event={showEvent} />
       </Modal>
+
       <EventIndex
         events={events}
         onFavorite={handleFavorite}
