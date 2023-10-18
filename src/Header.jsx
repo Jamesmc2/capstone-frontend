@@ -18,7 +18,6 @@ export function Header() {
   useEffect(getUser, []);
 
   const signupLink = () => {
-    console.log("signing up");
     setShowSignup(true);
   };
   const loginLink = () => {
